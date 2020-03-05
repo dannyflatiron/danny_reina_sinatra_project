@@ -20,7 +20,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      Athlete.find_by(id: session[:athlete_id])
+      @current_user ||= Athlete.find_by(id: session[:athlete_id])
     end
   end
 

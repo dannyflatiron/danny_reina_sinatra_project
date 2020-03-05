@@ -23,7 +23,7 @@ class AthletesController < ApplicationController
             redirect '/login'
         end
         erb :login
-    end
+    end 
 
     get '/signup' do
     end
