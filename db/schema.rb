@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20200304012339) do
   create_table "exercises", force: :cascade do |t|
     t.string  "name"
     t.date    "date_performed"
+    t.integer "max_lift"
     t.integer "athlete_id"
   end
 
