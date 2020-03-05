@@ -13,6 +13,17 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  helpers do
+
+    def logged_in?
+      !!current_user
+    end
+
+    def current_user
+      Athlete.find_by(id: session[:athlete_id])
+    end
+  end
+
   
 
 end

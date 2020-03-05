@@ -19,6 +19,8 @@ class AthletesController < ApplicationController
             # use double quotations for line 20 to work
             redirect "/athletes/#{@athlete.id}"
         else
+
+            redirect '/login'
         end
         erb :login
     end
