@@ -34,13 +34,21 @@ class AthletesController < ApplicationController
         # create new athlete here
         if params[:username] != "" && params[:password] != ""
             @athlete = Athlete.create(params)
+            session[:athlete_id] = @athlete.id
             redirect "/athletes/#{@athlete.id}"
-            erb :'/athletes/show'
         else
+            redirect '/signup'
         end
     end
 
     get '/athletes/:id' do
+        # how to show user's username in the url?
+        @athlete = Athlete.find_by(id: params[:id])
         erb :'/athletes/show'
+    end
+
+    get '/logout' do
+        session.clear
+        redirect '/'
     end
 end
