@@ -15,6 +15,9 @@ ActiveRecord::Schema.define(version: 20200304012339) do
 
   create_table "athletes", force: :cascade do |t|
     t.string "username"
+    # gem bcrypt hashes and salts password through a hashing algorithm 
+    # should use macro 'has_secure_password' and ActiveRecord method 'authenticate'
+    # prevents from having strings in the database
     t.string "password_digest"
   end
 

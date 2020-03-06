@@ -15,6 +15,7 @@ class ApplicationController < Sinatra::Base
 
   helpers do
 
+    # this should return true or false not the value of current_user
     def logged_in?
       !!current_user
     end
