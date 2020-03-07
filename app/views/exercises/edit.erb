@@ -1,0 +1,9 @@
+<h2>Update Your Exercise Performance</h2>
+<form action="/exercises" method="post">
+    <label for="exercise">Exercise:</label>
+    <input type="text" name="exercise" value="<%= @exercise.name %>">
+    <label for="max_lift">Max Lift: </label>
+    <input type="text" name="max_lift" value="<%= @exercise.max_lift %>">
+    <input type="submit" value="Update">
+    
+</form>
