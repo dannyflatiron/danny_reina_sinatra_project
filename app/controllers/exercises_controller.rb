@@ -23,9 +23,15 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/:id/edit' do
+        # is it possible to substitute :id for the user's username?
         @exercise = Exercise.find_by(params[:id])
         erb :'/exercises/edit'
     end
+
+    patch '/exercises/:id' do
+        "Hello World"
+    end
+
 
 
 end
