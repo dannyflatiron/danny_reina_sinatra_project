@@ -16,4 +16,11 @@ class ExercisesController < ApplicationController
             redirect '/exercises/new'
         end
     end
+
+    get '/exercises/:id' do
+        @exercise = Exercise.find_by(params[:id])
+        erb :show
+    end
+
+
 end
