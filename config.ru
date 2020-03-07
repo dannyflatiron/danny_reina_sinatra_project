@@ -11,5 +11,5 @@ use Rack::MethodOverride
 
 #mount other controllers here
 use AthletesController
-# use ExercisesController
+use ExercisesController
 run ApplicationController
