@@ -5,6 +5,15 @@ class ExercisesController < ApplicationController
     end
 
     post '/exercises' do
-        
+        if !logged_in?
+            redirect '/'
+        end
+
+        if params[:name] != "" && params[:max_lift] != nil
+            @exercise = Exercise.create(name: params[:exercise], athlete_id: current_user.id)
+            redirect "/exercises/#{@exercise.id}"
+        else
+            redirect '/exercises/new'
+        end
     end
 end
