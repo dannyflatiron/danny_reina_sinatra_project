@@ -22,5 +22,9 @@ class ExercisesController < ApplicationController
         erb :'/exercises/show'
     end
 
+    get '/exercises/:id/edit' do
+        erb :'/exercises/edit'
+    end
+
 
 end
