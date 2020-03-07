@@ -1,1 +1,11 @@
-Show page for exercise
+<h2>Your Exercises and Max Lifts History</h2>
+
+<p>Exercise: <%= @exercise.name %>  <strong>Date: <%= @exercise.date_performed %></strong><br>
+Max Lift: <%= @exercise.max_lift %></p>
+
+Edit Link
+<a href="/exercises/<%= @exercise.id %>/edit">Edit</a>
+
+Delete Link
+<a href></a>
+
