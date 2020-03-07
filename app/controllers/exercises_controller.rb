@@ -27,7 +27,7 @@ class ExercisesController < ApplicationController
         # is it possible to substitute :id for the user's username?
         exercise
         if logged_in?
-            if @exercise.athlete == current_user
+            if @exercise.athlete.id == current_user
                 erb :'/exercises/edit'
             else
                 redirect "athletes/#{current_user.id}"
@@ -42,7 +42,7 @@ class ExercisesController < ApplicationController
         # find exercise because @exercise wasn't passed because of patch
         exercise
         if logged_in?
-            if @exercise.athlete == current_userf 
+            if @exercise.athlete == current_user
                 @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
                 redirect "/exercises/#{@exercise.id}"
             else
