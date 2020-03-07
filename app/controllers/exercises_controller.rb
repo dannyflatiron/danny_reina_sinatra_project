@@ -19,7 +19,7 @@ class ExercisesController < ApplicationController
 
     get '/exercises/:id' do
         @exercise = Exercise.find_by(params[:id])
-        erb :show
+        erb :'/exercises/show'
     end
 
 
