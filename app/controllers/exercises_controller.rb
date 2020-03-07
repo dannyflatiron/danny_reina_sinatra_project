@@ -22,17 +22,35 @@ class ExercisesController < ApplicationController
         erb :'/exercises/show'
     end
 
+    # need to add validation to prevent users from editing anyone's entry
     get '/exercises/:id/edit' do
         # is it possible to substitute :id for the user's username?
         exercise
-        erb :'/exercises/edit'
+        if logged_in?
+            if @exercise.athlete == current_user
+                erb :'/exercises/edit'
+            else
+                redirect "athletes/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
+        
     end
 
     patch '/exercises/:id' do
         # find exercise because @exercise wasn't passed because of patch
         exercise
-        @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
-        redirect "exercises/#{@exercise.id}"
+        if logged_in?
+            if @exercise.athlete == current_userf 
+                @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
+                redirect "/exercises/#{@exercise.id}"
+            else
+                redirect "athletes/#{current_user.id}"
+            end
+        else
+            redirect "/"
+        end
     end
 
     private
