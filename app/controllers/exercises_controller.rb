@@ -23,6 +23,7 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/:id/edit' do
+        @exercise = Exercise.find_by(params[:id])
         erb :'/exercises/edit'
     end
 
