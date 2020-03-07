@@ -18,20 +18,28 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/:id' do
-        @exercise = Exercise.find_by(params[:id])
+        exercise
         erb :'/exercises/show'
     end
 
     get '/exercises/:id/edit' do
         # is it possible to substitute :id for the user's username?
-        @exercise = Exercise.find_by(params[:id])
+        exercise
         erb :'/exercises/edit'
     end
 
     patch '/exercises/:id' do
-        "Hello World"
+        # find exercise because @exercise wasn't passed because of patch
+        exercise
+        @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
+        redirect "exercises/#{@exercise.id}"
     end
 
+    private
+
+    def exercise
+        @exercise = Exercise.find_by(params[:id])
+    end
 
 
 end
