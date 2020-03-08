@@ -3,9 +3,10 @@
 <p>Exercise: <%= @exercise.name %>  <strong>Date: <%= @exercise.date_performed %></strong><br>
 Max Lift: <%= @exercise.max_lift %></p>
 
-Edit Link
 <a href="/exercises/<%= @exercise.id %>/edit">Edit</a>
-
-Delete Link
-<a href></a>
+<br><br>
+<form class="" action="/exercises/<%= @exercise.id %>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" name="" value="Delete">
+</form>
 
