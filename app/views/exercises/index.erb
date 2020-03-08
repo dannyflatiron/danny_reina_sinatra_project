@@ -1,1 +1,12 @@
-index page for exercises
+<h1>Hello <%= current_user.username %></h1>
+<h2>History</h2>
+<% @exercises.each do |exercise| %>
+<h4>Exercise: <%= exercise.name %></h4>
+<h4>Weight: <%= exercise.max_lift %></h4>
+<p>Date: <%= exercise.date_performed %></p>
+<p><a href="/exercises/<%= exercise.id %>">View More Information</a></p>
+
+
+
+<% end %>
+
