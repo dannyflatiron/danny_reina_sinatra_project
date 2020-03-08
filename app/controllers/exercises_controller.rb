@@ -21,8 +21,8 @@ class ExercisesController < ApplicationController
         end
 
         if params[:name] != "" && params[:max_lift] != nil
-            @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
-            # @exercise.date_performed = Date.today
+            # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
+            @exercise = current_user.exercises.create(name: params[:exercise],max_lift: params[:max_lift], date_performed: params[:Date], athlete_id: current_user.id)
             redirect "/exercises/#{@exercise.id}"
         else
             redirect '/exercises/new'
@@ -30,7 +30,7 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/:id' do
-        @exercise = Exercise.find_by(params[:id])
+        @exercise = Exercise.find_by(id: params[:id])
         erb :'/exercises/show'
     end
 
