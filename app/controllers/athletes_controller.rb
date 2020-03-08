@@ -20,6 +20,7 @@ class AthletesController < ApplicationController
             redirect "/athletes/#{@athlete.id}"
         else
             # how to add error messages/validation features?
+            flash[:message] = "Not your chore to edit"
             redirect '/login'
         end
         erb :login
