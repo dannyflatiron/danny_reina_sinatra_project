@@ -28,6 +28,10 @@ class ApplicationController < Sinatra::Base
     def current_user
       @current_user ||= Athlete.find_by(id: session[:athlete_id])
     end
+
+    def exercise_entry
+      @exercise = Exercise.find_by(params[:id])
+    end
   end
 
   
