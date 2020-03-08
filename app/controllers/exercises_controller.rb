@@ -37,10 +37,11 @@ class ExercisesController < ApplicationController
     # need to add validation to prevent users from editing anyone's entry
     get '/exercises/:id/edit' do
         # is it possible to substitute :id for the user's username?
-        exercise_entry
+        # exercise_entry
         if logged_in?
+            @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
-            if @exercise.athlete.id == current_user
+            if @exercise.athlete_id == current_user.id
                 erb :'/exercises/edit'
             else
                 redirect "athletes/#{current_user.id}"
@@ -48,7 +49,8 @@ class ExercisesController < ApplicationController
         else
             redirect '/'
         end
-        
+        # binding.pry
+
     end
 
     patch '/exercises/:id' do
@@ -57,7 +59,7 @@ class ExercisesController < ApplicationController
         exercise_entry
         if logged_in?
             # this can be abstracted with a helper method
-            if @exercise.athlete == current_user
+            if @exercise.athlete_id == current_user
                 @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
                 redirect "/exercises/#{@exercise.id}"
             else
@@ -68,9 +70,23 @@ class ExercisesController < ApplicationController
         end
     end
 
-    private
 
+    delete '/exercises/:id' do
+        if exercise_entry.athlete_id == current_user
+            exercise_entry.delete
+            redirect '/exercises'
+        else
+            redirect '/login'
+        end
 
+        # if logged_in?
+        #     @exercise = Exercise.find_by_id(params[:id])
+        #     @exercise.delete
+        #     redirect '/exercises'
+        # else
+        #     redirect '/login'
+        # end
+    end
 
 
 end
