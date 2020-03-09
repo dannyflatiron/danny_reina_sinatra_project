@@ -22,7 +22,7 @@ class ExercisesController < ApplicationController
 
         if params[:name] != "" && params[:max_lift] != nil
             # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
-            @exercise = current_user.exercises.create(name: params[:exercise],max_lift: params[:max_lift], date_performed: params[:Date], athlete_id: current_user.id)
+            @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
             redirect "/exercises/#{@exercise.id}"
         else
             redirect '/exercises/new'
@@ -56,10 +56,11 @@ class ExercisesController < ApplicationController
     patch '/exercises/:id' do
 
         # find exercise because @exercise wasn't passed because of patch
-        exercise_entry
+        
         if logged_in?
+            @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
-            if @exercise.athlete_id == current_user
+            if @exercise.athlete_id == current_user.id
                 @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
                 redirect "/exercises/#{@exercise.id}"
             else

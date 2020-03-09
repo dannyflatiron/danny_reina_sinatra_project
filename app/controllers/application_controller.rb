@@ -1,5 +1,5 @@
 require './config/environment'
-require 'rack-flash'
+# require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
 
@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "bricks_@_flatiron"
-    use Rack::Flash
+    # register Sinatra::Flash
   end
 
   get "/" do

@@ -5,6 +5,10 @@ class AthletesController < ApplicationController
         erb :login
     end
 
+    # get '/athletes/' do
+    #     "Hello World"
+    #   end
+
     # this creates a session hash
     # finds the user 
     # logins them in 
@@ -20,7 +24,7 @@ class AthletesController < ApplicationController
             redirect "/athletes/#{@athlete.id}"
         else
             # how to add error messages/validation features?
-            flash[:message] = "Not your chore to edit"
+            # flash[:message] = "Incorrect Password"
             redirect '/login'
         end
         erb :login
@@ -33,12 +37,16 @@ class AthletesController < ApplicationController
 
     post '/athletes' do
         # create new athlete here
-        if params[:username] != "" && params[:password] != ""
+        if params[:username] != "" && params[:password] != "" 
             @athlete = Athlete.create(params)
-            session[:athlete_id] = @athlete.id
-            redirect "/athletes/#{@athlete.id}"
-        else
-            redirect '/signup'
+            if @athlete.save
+                session[:athlete_id] = @athlete.id
+                redirect "/athletes/#{@athlete.id}"
+            else
+                redirect '/signup'
+            end
+        # else
+        #     redirect '/signup'
         end
     end
 
