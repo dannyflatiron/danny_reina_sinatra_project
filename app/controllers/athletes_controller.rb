@@ -18,7 +18,7 @@ class AthletesController < ApplicationController
     # authenticate password
     post '/login' do
         @athlete = Athlete.find_by(username: params[:username])
-        if @athlete.authenticate(params[:password])
+        if @athlete && @athlete.authenticate(params[:password]) 
             session[:athlete_id] = @athlete.id
             # use double quotations for line 20 to work
             redirect "/athletes/#{@athlete.id}"
@@ -37,17 +37,17 @@ class AthletesController < ApplicationController
 
     post '/athletes' do
         # create new athlete here
-        if params[:username] != "" && params[:password] != "" 
+        # if params[:username] != "" && params[:password] != "" 
             @athlete = Athlete.create(params)
-            if @athlete.save
+            if @athlete.save && params[:username] != "" && params[:password] != ""
                 session[:athlete_id] = @athlete.id
                 redirect "/athletes/#{@athlete.id}"
             else
                 redirect '/signup'
             end
-        # else
+        # else 
         #     redirect '/signup'
-        end
+        # end
     end
 
     get '/athletes/:id' do
