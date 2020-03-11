@@ -110,9 +110,13 @@ class ExercisesController < ApplicationController
         # end
 
         if logged_in?
-            @exercise = Exercise.find_by_id(params[:id])
-            @exercise.delete
-            redirect '/exercises'
+            @exercise = current_user.exercises.find_by(params[:id])
+            if @exercise.athlete_id == current_user.id
+                @exercise.destroy
+                redirect '/exercises'
+            else
+                redirect "/athletes/#{current_user.id}"
+            end
         else
             redirect '/login'
         end
