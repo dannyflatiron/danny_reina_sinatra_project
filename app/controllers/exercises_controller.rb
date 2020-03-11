@@ -23,7 +23,6 @@ class ExercisesController < ApplicationController
         if !logged_in?
             redirect '/'
         end
-
         # if params[:name] != "" && params[:max_lift] != nil
         #     # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
         #     @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
@@ -32,14 +31,13 @@ class ExercisesController < ApplicationController
         #     redirect '/exercises/new'
         # end
         # binding.pry
-        if !params[:name].nil?
+        if !params[:exercise].empty? && !params[:max_lift].empty?
             @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
                 if @exercise.save
                     redirect "/exercises/#{@exercise.id}"
                 else
                     redirect "/exercises/new"
                 end
-            # redirect "/exercises/#{@exercise.id}"
         else
             redirect "/exercises/new"
         end
