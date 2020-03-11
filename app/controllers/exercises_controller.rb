@@ -11,25 +11,56 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/new' do
+        if logged_in?
+            @athlete = Athlete.find_by(id: params[:id])
         erb :'/exercises/new'
+        else
+            redirect '/'
+        end
     end
 
     post '/exercises' do
-
         if !logged_in?
             redirect '/'
         end
 
-        if params[:name] != "" && params[:max_lift] != nil
-            # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
+        # if params[:name] != "" && params[:max_lift] != nil
+        #     # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
+        #     @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
+        #     redirect "/exercises/#{@exercise.id}"
+        # else
+        #     redirect '/exercises/new'
+        # end
+        # binding.pry
+        if !params[:name].nil?
             @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
-            redirect "/exercises/#{@exercise.id}"
+                if @exercise.save
+                    redirect "/exercises/#{@exercise.id}"
+                else
+                    redirect "/exercises/new"
+                end
+            # redirect "/exercises/#{@exercise.id}"
         else
-            redirect '/exercises/new'
+            redirect "/exercises/new"
         end
     end
 
     get '/exercises/:id' do
+        # if logged_in?
+        #     @exercise = Exercise.find_by(id: params[:id])
+        #     binding.pry
+
+        #     if
+        #         @exercise.athlete_id == current_user.id
+        #         erb :'/exercises/show'
+        #     else
+        #         redirect "athletes/#{current_user.id}"
+        #     end
+        #         redirect '/'
+        # else
+        #     redirect '/'
+        # end
+
         @exercise = Exercise.find_by(id: params[:id])
         erb :'/exercises/show'
     end
