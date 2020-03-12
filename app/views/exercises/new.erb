@@ -1,5 +1,8 @@
 
 <h2>Record Your Exercise Performance</h2>
+<% if flash[:message] %>
+<h4><%= flash[:message] %></h4>
+<% end %>
 <form action="/exercises" method="post">
     <label for="exercise">Exercise:</label>
     <input type="text" name="exercise">
@@ -17,3 +20,5 @@
 <a href="/logout">Logout</a>
 <% end %>
 </p>
+
+
