@@ -106,6 +106,7 @@ class ExercisesController < ApplicationController
             @exercise = Exercise.find(params[:id])
             if @exercise && @exercise.athlete_id == current_user.id
                 @exercise.destroy
+                # binding.pry
                 flash[:message] = "Your performance has been deleted!"
                 redirect "/exercises"
             else
