@@ -45,7 +45,7 @@ class AthletesController < ApplicationController
                 flash[:message] = "You have successfully created a new account!"
                 redirect "/athletes/#{@athlete.id}"
             else
-                flash[:error] = "Account creation failure: #{@athlete.errors.full_messages.to_sentence}"
+                flash[:error] = "Account creation failure: #{@athlete.errors.full_messages.to_sentence}!"
                 redirect '/signup'
             end
         # else 
