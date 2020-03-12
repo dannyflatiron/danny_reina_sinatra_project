@@ -34,10 +34,10 @@ class ExercisesController < ApplicationController
         if !params[:exercise].empty? && !params[:max_lift].empty?
             @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
                 if @exercise.save
-                    flash[:message] = "Your performance has been saved"
+                    flash[:message] = "Your performance has been saved!"
                     redirect "/exercises/#{@exercise.id}"
                 else
-                    flash[:message] = "Invalid entry. Please enter exercise name and the amount of weight lifted."
+                    flash[:error] = "Invalid entry. Please enter exercise name and the amount of weight lifted."
                     redirect "/exercises/new"
                 end
         else
@@ -76,7 +76,7 @@ class ExercisesController < ApplicationController
             if @exercise.athlete_id == current_user.id
                 erb :'/exercises/edit'
             else
-                flash[:message] = "You are not allowed to edit another user's property"
+                flash[:error] = "You are not allowed to edit another user's property"
                 redirect "athletes/#{current_user.id}"
             end
         else
@@ -98,7 +98,7 @@ class ExercisesController < ApplicationController
                 flash[:message] = "Your performance has been updated!"
                 redirect "/exercises/#{@exercise.id}"
             else
-                flash[:message] = "Please enter valid entries. Name for exercise and number for weight lifted."
+                flash[:error] = "Please enter valid entries. Name for exercise and number for weight lifted."
                 # redirect "athletes/#{current_user.id}"
                 redirect "/exercises/#{@exercise.id}"
             end
