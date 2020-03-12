@@ -111,6 +111,7 @@ class ExercisesController < ApplicationController
     delete '/exercises/:id' do
         # if exercise_entry.athlete_id == current_user
         #     exercise_entry.delete
+        # should I use delete or destroy
         #     redirect '/exercises'
         # else
         #     redirect '/login'
