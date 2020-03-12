@@ -94,7 +94,7 @@ class ExercisesController < ApplicationController
             @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
             if @exercise.athlete_id == current_user.id && !params[:exercise].empty? && !params[:max_lift].empty?
-                @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
+                @exercise.update(name: params[:exercise], max_lift: params[:max_lift],)
                 flash[:message] = "Your performance has been updated!"
                 redirect "/exercises/#{@exercise.id}"
             else
@@ -119,13 +119,14 @@ class ExercisesController < ApplicationController
 
         if logged_in?
             @exercise = current_user.exercises.find_by(params[:id])
-            if @exercise.athlete_id == current_user.id
+            if @exercise && @exercise.athlete_id == current_user.id
                 @exercise.destroy
-                flash[:message] = "Your performance has been deleted!"
+                
                 redirect '/exercises'
             else
                 flash[:message] = "You cannot delete performance for another user!"
-                redirect "/athletes/#{current_user.id}"
+                # redirect "/athletes/#{current_user.id}"
+                redirect '/exercises'
             end
         else
             redirect '/login'
