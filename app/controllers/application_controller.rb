@@ -35,8 +35,15 @@ class ApplicationController < Sinatra::Base
       @exercise = Exercise.find_by_id(params[:id])
       # @exercise = current_user.exercises.find_by(params[:id])
     end
+
+    def redirect_if_not_logged_in
+      if !logged_in?
+        flash[:error] = "You must be logged in to view the page"
+        redirect '/'
+      end
+    end
   end
 
   
-
 end
+
