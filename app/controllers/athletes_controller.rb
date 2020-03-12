@@ -39,13 +39,13 @@ class AthletesController < ApplicationController
     post '/athletes' do
         # create new athlete here
         # if params[:username] != "" && params[:password] != "" 
-            @athlete = Athlete.create(params)
+            @athlete = Athlete.new(params)
             if @athlete.save && params[:username] != "" && params[:password] != ""
                 session[:athlete_id] = @athlete.id
                 flash[:message] = "You have successfully created a new account!"
                 redirect "/athletes/#{@athlete.id}"
             else
-                flash[:error] = "Invalid entry or username already taken. Please try again."
+                flash[:error] = "Account creation failure: #{@athlete.errors.full_messages.to_sentence}"
                 redirect '/signup'
             end
         # else 
