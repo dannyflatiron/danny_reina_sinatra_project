@@ -21,6 +21,7 @@ class AthletesController < ApplicationController
         if @athlete && @athlete.authenticate(params[:password]) 
             session[:athlete_id] = @athlete.id
             # use double quotations for line 20 to work
+            flash[:message] = "Welcome, #{@athlete.username}!"
             redirect "/athletes/#{@athlete.id}"
         else
             # how to add error messages/validation features?
