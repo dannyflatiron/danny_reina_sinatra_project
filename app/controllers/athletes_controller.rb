@@ -55,6 +55,7 @@ class AthletesController < ApplicationController
 
     get '/athletes/:id' do
         # how to show user's username in the url?
+        redirect_if_not_logged_in
         @athlete = Athlete.find_by(id: params[:id])
         erb :'/athletes/show'
     end
