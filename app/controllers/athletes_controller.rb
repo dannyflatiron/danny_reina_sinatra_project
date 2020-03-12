@@ -43,6 +43,7 @@ class AthletesController < ApplicationController
                 session[:athlete_id] = @athlete.id
                 redirect "/athletes/#{@athlete.id}"
             else
+                flash[:message] = "Your credentials were invalid. Please sign up or try again."
                 redirect '/signup'
             end
         # else 
