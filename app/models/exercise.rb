@@ -4,7 +4,5 @@ class Exercise < ActiveRecord::Base
     belongs_to :athlete
 
 
-    # does this work for this class/
-    # validates :name, presence: true
-    # validates :max_lift, presence: true
+
 end
