@@ -1,5 +1,8 @@
 <h2>History</h2>
-
+<% if flash[:message] %>
+<h4><%= flash[:message] %></h4>
+<% end %>
+<br>
 <p>Exercise: <%= @exercise.name %>  <strong>Date: <%= @exercise.date_performed %></strong><br>
 Max Lift: <%= @exercise.max_lift %>lbs</p>
 
