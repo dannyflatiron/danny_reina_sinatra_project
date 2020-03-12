@@ -1,5 +1,11 @@
 <h1>Hello <%= current_user.username %></h1>
 <h2>History</h2>
+<% if flash[:message] %>
+<h4 style="color: red;"><%= flash[:message] %></h4>
+<% end %>
+<% if flash[:error] %>
+<h4 style="color: red;"><%= flash[:error] %></h4>
+<% end %>
 <% @exercises.each do |exercise| %>
 <h4>Exercise: <%= exercise.name %></h4>
 <h4>Weight: <%= exercise.max_lift %>lbs</h4>
