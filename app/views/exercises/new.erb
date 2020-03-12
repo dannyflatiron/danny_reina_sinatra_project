@@ -1,7 +1,7 @@
 
 <h2>Record Your Exercise Performance</h2>
-<% if flash[:message] %>
-<h4><%= flash[:message] %></h4>
+<% if flash[:error] %>
+<h4 style="color: red;"><%= flash[:error] %></h4>
 <% end %>
 <form action="/exercises" method="post">
     <label for="exercise">Exercise:</label>
