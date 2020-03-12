@@ -1,7 +1,8 @@
 <h1>Login in Page</h1>
-<% if flash[:message] %>
-<h4><%= flash[:message] %></h4>
+<% if flash[:error] %>
+<h4 style="color: red;"><%= flash[:error] %></h4>
 <% end %>
+
 <form action="/login" method="post">
     <label for="name">Name:</label>
     <input type= "text" name ="username" placeholder="Name">
