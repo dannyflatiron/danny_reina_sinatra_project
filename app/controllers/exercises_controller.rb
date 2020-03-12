@@ -120,8 +120,8 @@ class ExercisesController < ApplicationController
         if logged_in?
             @exercise = current_user.exercises.find_by(params[:id])
             if @exercise && @exercise.athlete_id == current_user.id
-                @exercise.destroy
-                
+                @exercise.delete
+                flash[:message] = "Your performance has been deleted!"
                 redirect '/exercises'
             else
                 flash[:message] = "You cannot delete performance for another user!"
