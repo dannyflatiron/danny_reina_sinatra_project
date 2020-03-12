@@ -1,5 +1,8 @@
 
 <h2>Record Your Exercise Performance</h2>
+<% if flash[:message] %>
+<h4 style="color: red;"><%= flash[:message] %></h4>
+<% end %>
 <% if flash[:error] %>
 <h4 style="color: red;"><%= flash[:error] %></h4>
 <% end %>
