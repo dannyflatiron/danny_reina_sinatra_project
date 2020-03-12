@@ -1,7 +1,8 @@
 <h2>Sign Up!</h2>
-<% if flash[:message] %>
-<h4><%= flash[:message] %></h4>
+<% if flash[:error] %>
+<h4 style="color: red;"><%= flash[:error] %></h4>
 <% end %>
+
 <form action="/athletes" method="post">
     <label for="username">Username:</label>
     <input type="text" name="username" placeholder="Name">
