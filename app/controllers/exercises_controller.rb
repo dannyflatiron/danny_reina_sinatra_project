@@ -102,15 +102,16 @@ class ExercisesController < ApplicationController
         # end
 
         redirect_if_not_logged_in
-            @exercise = current_user.exercises.find_by(params[:id])
+            # @exercise = current_user.exercises.find_by(params[:id])
+            @exercise = Exercise.find(params[:id])
             if @exercise && @exercise.athlete_id == current_user.id
                 @exercise.destroy
                 flash[:message] = "Your performance has been deleted!"
-                redirect '/exercises'
+                redirect "/exercises"
             else
-                flash[:message] = "You cannot delete performance for another user!"
-                # redirect "/athletes/#{current_user.id}"
-                redirect '/exercises'
+                flash[:error] = "You cannot delete performance for another user!"
+                # redirect "/exercises"
+                redirect "/exercises"
             end
     end
 
