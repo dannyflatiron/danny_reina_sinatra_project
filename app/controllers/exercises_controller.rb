@@ -34,11 +34,14 @@ class ExercisesController < ApplicationController
         if !params[:exercise].empty? && !params[:max_lift].empty?
             @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
                 if @exercise.save
+                    flash[:message] = "Your performance has been saved"
                     redirect "/exercises/#{@exercise.id}"
                 else
+                    flash[:message] = "Invalid entry. Please enter exercise name and the amount of weight lifted."
                     redirect "/exercises/new"
                 end
         else
+            flash[:message] = "Invalid entry. Please enter exercise name and the amount of weight lifted."
             redirect "/exercises/new"
         end
     end
@@ -73,6 +76,7 @@ class ExercisesController < ApplicationController
             if @exercise.athlete_id == current_user.id
                 erb :'/exercises/edit'
             else
+                flash[:message] = "You are not allowed to edit another user's property"
                 redirect "athletes/#{current_user.id}"
             end
         else
@@ -89,11 +93,14 @@ class ExercisesController < ApplicationController
         if logged_in?
             @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
-            if @exercise.athlete_id == current_user.id
+            if @exercise.athlete_id == current_user.id && !params[:exercise].empty? && !params[:max_lift].empty?
                 @exercise.update(name: params[:exercise], max_lift: params[:max_lift])
+                flash[:message] = "Your performance has been updated!"
                 redirect "/exercises/#{@exercise.id}"
             else
-                redirect "athletes/#{current_user.id}"
+                flash[:message] = "Please enter valid entries. Name for exercise and number for weight lifted."
+                # redirect "athletes/#{current_user.id}"
+                redirect "/exercises/#{@exercise.id}"
             end
         else
             redirect "/"
@@ -113,8 +120,10 @@ class ExercisesController < ApplicationController
             @exercise = current_user.exercises.find_by(params[:id])
             if @exercise.athlete_id == current_user.id
                 @exercise.destroy
+                flash[:message] = "Your performance has been deleted!"
                 redirect '/exercises'
             else
+                flash[:message] = "You cannot delete performance for another user!"
                 redirect "/athletes/#{current_user.id}"
             end
         else
