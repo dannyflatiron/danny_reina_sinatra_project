@@ -24,7 +24,7 @@ class AthletesController < ApplicationController
             redirect "/athletes/#{@athlete.id}"
         else
             # how to add error messages/validation features?
-            # flash[:message] = "Incorrect Password"
+            flash[:message] = "Your credentials were invalid. Please sign up or try again."
             redirect '/login'
         end
         erb :login
