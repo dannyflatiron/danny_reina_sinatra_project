@@ -2,27 +2,19 @@ class ExercisesController < ApplicationController
 
 
     get '/exercises' do
-        if !logged_in?
-            redirect '/'
-        else
+        redirect_if_not_logged_in
             @exercises = current_user.exercises
             erb :"/exercises/index"
-        end
     end
 
     get '/exercises/new' do
-        if logged_in?
+        redirect_if_not_logged_in
             @athlete = Athlete.find_by(id: params[:id])
         erb :'/exercises/new'
-        else
-            redirect '/'
-        end
     end
 
     post '/exercises' do
-        if !logged_in?
-            redirect '/'
-        end
+        redirect_if_not_logged_in
         # if params[:name] != "" && params[:max_lift] != nil
         #     # @exercise = Exercise.create(name: params[:exercise],date_performed: params[Date.today], athlete_id: current_user.id)
         #     @exercise = current_user.exercises.create(name: params[:exercise], max_lift: params[:max_lift], date_performed: Date.today, athlete_id: current_user.id)
@@ -70,7 +62,7 @@ class ExercisesController < ApplicationController
     get '/exercises/:id/edit' do
         # is it possible to substitute :id for the user's username?
         # exercise_entry
-        if logged_in?
+        redirect_if_not_logged_in
             @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
             if @exercise.athlete_id == current_user.id
@@ -79,18 +71,13 @@ class ExercisesController < ApplicationController
                 flash[:error] = "You are not allowed to edit another user's property"
                 redirect "athletes/#{current_user.id}"
             end
-        else
-            redirect '/'
-        end
-        # binding.pry
-
     end
 
     patch '/exercises/:id' do
 
         # find exercise because @exercise wasn't passed because of patch
         
-        if logged_in?
+        redirect_if_not_logged_in
             @exercise = Exercise.find_by_id(params[:id])
             # this can be abstracted with a helper method
             if @exercise.athlete_id == current_user.id && !params[:exercise].empty? && !params[:max_lift].empty?
@@ -102,9 +89,6 @@ class ExercisesController < ApplicationController
                 # redirect "athletes/#{current_user.id}"
                 redirect "/exercises/#{@exercise.id}"
             end
-        else
-            redirect "/"
-        end
     end
 
 
@@ -117,10 +101,10 @@ class ExercisesController < ApplicationController
         #     redirect '/login'
         # end
 
-        if logged_in?
+        redirect_if_not_logged_in
             @exercise = current_user.exercises.find_by(params[:id])
             if @exercise && @exercise.athlete_id == current_user.id
-                @exercise.delete
+                @exercise.destroy
                 flash[:message] = "Your performance has been deleted!"
                 redirect '/exercises'
             else
@@ -128,9 +112,6 @@ class ExercisesController < ApplicationController
                 # redirect "/athletes/#{current_user.id}"
                 redirect '/exercises'
             end
-        else
-            redirect '/login'
-        end
     end
 
 
