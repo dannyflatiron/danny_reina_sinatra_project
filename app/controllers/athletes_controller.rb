@@ -12,7 +12,7 @@ class AthletesController < ApplicationController
             flash[:message] = "Welcome, #{@athlete.username}!"
             redirect "/athletes/#{@athlete.id}"
         else
-            flash[:error] = "Your credentials were invalid. Please sign up or try again."
+            flash[:error] = "Login failed: Please sign up or try again."
             redirect '/login'
         end
         erb :login
