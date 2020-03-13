@@ -10,7 +10,7 @@
 <h4>Exercise: <%= exercise.name %></h4>
 <h4>Weight: <%= exercise.max_lift %>lbs</h4>
 <p>Date: <%= exercise.formatted_time %></p>
-<p><a href="/exercises/<%= exercise.id %>">View More Information</a></p>
+<p><a href="/exercises/<%= exercise.id %>">Update entry</a></p>
 
 
 
@@ -18,7 +18,7 @@
 <br>
 <p>
 <% if logged_in? %>
-<a href="/exercises/new">Track</a>
+<a href="/exercises/new">New Entry</a>
 <a href="/logout">Logout</a>
 <% end %>
 </p>
