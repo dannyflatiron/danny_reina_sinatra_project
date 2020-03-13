@@ -6,7 +6,7 @@
 <h4 style="color: red;"><%= flash[:error] %></h4>
 <% end %>
 <br>
-<p>Exercise: <%= @exercise.name %>  <strong>Date: <%= @exercise.date_performed %></strong><br>
+<p>Exercise: <%= @exercise.name %>  <strong>Date: <%= @exercise.formatted_time %></strong><br>
 Max Lift: <%= @exercise.max_lift %>lbs</p>
 
 <a href="/exercises/<%= @exercise.id %>/edit">Edit</a>

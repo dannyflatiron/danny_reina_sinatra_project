@@ -7,4 +7,8 @@ class Exercise < ActiveRecord::Base
     # does this work for this class/
     # validates :name, presence: true
     # validates :max_lift, presence: true
+
+    def formatted_time
+        self.date_performed.strftime("%A, %d %b %Y ")
+    end
 end
