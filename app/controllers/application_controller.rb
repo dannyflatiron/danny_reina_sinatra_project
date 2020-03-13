@@ -33,6 +33,7 @@ class ApplicationController < Sinatra::Base
 
     def exercise_entry
       @exercise = Exercise.find_by_id(params[:id])
+      
       # @exercise = current_user.exercises.find_by(params[:id])
     end
 
