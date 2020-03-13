@@ -1,8 +1,30 @@
-For athletes!
 
-Create your account to track your performance while training. Athletes can also edit and/or deletecpast performances if need be.
+## Athlete Sinatra App
+
+Record your performance in the weight room. Edit if you made a mistake or delete if you don't likee your performance. 
 
 Get comfortable being uncomfortable!
+
+## What you can do
+
+- Create an account
+- Log into your account
+- Log out of your account
+- Add new exercises that you have done
+- View exercises that you have done
+- Edit your exercises
+- Delete your exercises
+
+## Installation
+
+    $ git clone git@github.com:dannyflatiron/danny_reina_sinatra_project.git
+    $ bundle install
+    $ rake db:migrate
+
+## Run the server
+
+    $ shotgun
+
 
 LICENSE
 
