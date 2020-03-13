@@ -9,7 +9,7 @@ class ExercisesController < ApplicationController
 
     get '/exercises/new' do
         redirect_if_not_logged_in
-            @athlete = Athlete.find_by(id: params[:id])
+        exercise_entry
         erb :'/exercises/new'
     end
 
@@ -31,14 +31,14 @@ class ExercisesController < ApplicationController
     end
 
     get '/exercises/:id' do
-        @exercise = Exercise.find_by(id: params[:id])
+        exercise_entry
         erb :'/exercises/show'
     end
 
     get '/exercises/:id/edit' do
         # is it possible to substitute :id for the user's username?
         redirect_if_not_logged_in
-            @exercise = Exercise.find_by_id(params[:id])
+        exercise_entry
             if @exercise.athlete_id == current_user.id
                 erb :'/exercises/edit'
             else
@@ -49,7 +49,7 @@ class ExercisesController < ApplicationController
 
     patch '/exercises/:id' do        
         redirect_if_not_logged_in
-            @exercise = Exercise.find_by_id(params[:id])
+        exercise_entry
             if @exercise.athlete_id == current_user.id && !params[:exercise].empty? && !params[:max_lift].empty?
                 @exercise.update(name: params[:exercise], max_lift: params[:max_lift],)
                 flash[:message] = "Your performance has been updated!"
@@ -64,7 +64,7 @@ class ExercisesController < ApplicationController
 
     delete '/exercises/:id' do
         redirect_if_not_logged_in
-            @exercise = Exercise.find(params[:id])
+        exercise_entry
             if @exercise && @exercise.athlete_id == current_user.id
                 @exercise.destroy
                 flash[:message] = "Your performance has been deleted!"
